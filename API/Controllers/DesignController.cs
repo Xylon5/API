@@ -15,11 +15,11 @@ namespace API.Controllers
         [HttpPut]
         public IHttpActionResult PutBranding(SPSite site)
         {
-            //var siteUri = new Uri(site.Url);
-            //var spCtx = new Microsoft.SharePoint.Client.ClientContext(siteUri);
-            //spCtx.AuthenticationMode = ClientAuthenticationMode.Default;
-            //spCtx.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-            //spCtx.ExecuteQuery();
+            var siteUri = new Uri(site.Url);
+            var spCtx = new Microsoft.SharePoint.Client.ClientContext(siteUri);
+            spCtx.AuthenticationMode = ClientAuthenticationMode.Default;
+            spCtx.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+            spCtx.ExecuteQuery();
 
             //FileCreationInformation stylesheet = new FileCreationInformation();
             //stylesheet.Url = "/netto.global.css";
