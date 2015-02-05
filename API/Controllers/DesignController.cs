@@ -20,24 +20,51 @@ namespace API.Controllers
             spCtx.AuthenticationMode = ClientAuthenticationMode.Default;
             spCtx.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
             spCtx.ExecuteQuery();
-
-            FileCreationInformation stylesheet = new FileCreationInformation();
-            stylesheet.Url = "/netto.global.css";
-            stylesheet.Overwrite = true;
-            stylesheet.Content = System.IO.File.ReadAllBytes(HostingEnvironment.MapPath("~/assets/css/netto.global.css"));
-            spCtx.Web.RootFolder.Files.Add(stylesheet);
-
-            FileCreationInformation masterpage = new FileCreationInformation();
-            masterpage.Url = "/nettocollaboration.master";
-            masterpage.Overwrite = true;
-            masterpage.Content = System.IO.File.ReadAllBytes(HostingEnvironment.MapPath("~/assets/masterpage/nettocollaboration.master"));
-            spCtx.Web.RootFolder.Files.Add(masterpage);
-
+            spCtx.Load(spCtx.Web, w => w.ServerRelativeUrl);
             spCtx.ExecuteQuery();
 
-            spCtx.Web.AlternateCssUrl = "/netto.global.css";
-            spCtx.Web.MasterUrl = "/nettocollaboration.master";
+            string siteAssetUrl = string.Format("{0}/SiteAssets", spCtx.Web.ServerRelativeUrl);
 
+            List siteAssets = spCtx.Web.GetList(siteAssetUrl);
+            spCtx.ExecuteQuery();
+
+            FileCreationInformation stylesheet = new FileCreationInformation();
+            stylesheet.Url = "alternate.css";
+            stylesheet.Overwrite = true;
+            stylesheet.Content = System.IO.File.ReadAllBytes(HostingEnvironment.MapPath("~/assets/css/alternate.css"));
+            siteAssets.RootFolder.Files.Add(stylesheet);
+
+            FileCreationInformation masterpage = new FileCreationInformation();
+            masterpage.Url = "customMaster.master";
+            masterpage.Overwrite = true;
+            masterpage.Content = System.IO.File.ReadAllBytes(HostingEnvironment.MapPath("~/assets/masterpage/customMaster.master"));
+            siteAssets.RootFolder.Files.Add(masterpage);
+            
+            spCtx.ExecuteQuery();
+
+            spCtx.Web.AlternateCssUrl = siteAssetUrl + "/alternate.css";
+            spCtx.Web.MasterUrl = siteAssetUrl + "/customMaster.master";
+            spCtx.Web.Update();
+            spCtx.ExecuteQuery();
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IHttpActionResult DeleteBranding(SPSite site)
+        {
+            var siteUri = new Uri(site.Url);
+            var spCtx = new Microsoft.SharePoint.Client.ClientContext(siteUri);
+            spCtx.AuthenticationMode = ClientAuthenticationMode.Default;
+            spCtx.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+            spCtx.ExecuteQuery();
+
+            spCtx.Load(spCtx.Web, w => w.ServerRelativeUrl);
+            spCtx.ExecuteQuery();
+
+            spCtx.Web.AlternateCssUrl = "";
+            spCtx.Web.MasterUrl = spCtx.Web.ServerRelativeUrl + "/_catalogs/masterpage/seattle.master";
+            spCtx.Web.Update();
             spCtx.ExecuteQuery();
 
             return Ok();
