@@ -44,6 +44,9 @@ namespace API.Controllers
 
             spCtx.Web.AlternateCssUrl = siteAssetUrl + "/alternate.css";
             spCtx.Web.MasterUrl = siteAssetUrl + "/customMaster.master";
+
+            //spCtx.Web.AllProperties.FieldValues.Add("custom master version", new Version(0, 0, 1));
+
             spCtx.Web.Update();
             spCtx.ExecuteQuery();
 
