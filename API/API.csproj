@@ -137,7 +137,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\css\Netto.Global.css" />
     <Content Include="Global.asax" />
     <Content Include="ReadMe.html">
       <DependentUpon>ReadMe.md</DependentUpon>
@@ -172,7 +171,6 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="ReadMe.md" />
-    <Content Include="Assets\masterpage\NettoCollaboration.master" />
     <None Include="Properties\PublishProfiles\Local IIS.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -183,7 +181,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\css\" />
     <Folder Include="Assets\images\" />
+    <Folder Include="Assets\masterpage\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

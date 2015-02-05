@@ -21,24 +21,24 @@ namespace API.Controllers
             spCtx.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
             spCtx.ExecuteQuery();
 
-            //FileCreationInformation stylesheet = new FileCreationInformation();
-            //stylesheet.Url = "/netto.global.css";
-            //stylesheet.Overwrite = true;
-            //stylesheet.Content = System.IO.File.ReadAllBytes(HostingEnvironment.MapPath("~/assets/css/netto.global.css"));
-            //spCtx.Web.RootFolder.Files.Add(stylesheet);
-            
-            //FileCreationInformation masterpage = new FileCreationInformation();
-            //masterpage.Url = "/nettocollaboration.master";
-            //masterpage.Overwrite = true;
-            //masterpage.Content = System.IO.File.ReadAllBytes(HostingEnvironment.MapPath("~/assets/masterpage/nettocollaboration.master"));
-            //spCtx.Web.RootFolder.Files.Add(masterpage);
+            FileCreationInformation stylesheet = new FileCreationInformation();
+            stylesheet.Url = "/netto.global.css";
+            stylesheet.Overwrite = true;
+            stylesheet.Content = System.IO.File.ReadAllBytes(HostingEnvironment.MapPath("~/assets/css/netto.global.css"));
+            spCtx.Web.RootFolder.Files.Add(stylesheet);
 
-            //spCtx.ExecuteQuery();
+            FileCreationInformation masterpage = new FileCreationInformation();
+            masterpage.Url = "/nettocollaboration.master";
+            masterpage.Overwrite = true;
+            masterpage.Content = System.IO.File.ReadAllBytes(HostingEnvironment.MapPath("~/assets/masterpage/nettocollaboration.master"));
+            spCtx.Web.RootFolder.Files.Add(masterpage);
 
-            //spCtx.Web.AlternateCssUrl = "/netto.global.css";
-            //spCtx.Web.MasterUrl = "/nettocollaboration.master";
+            spCtx.ExecuteQuery();
 
-            //spCtx.ExecuteQuery();
+            spCtx.Web.AlternateCssUrl = "/netto.global.css";
+            spCtx.Web.MasterUrl = "/nettocollaboration.master";
+
+            spCtx.ExecuteQuery();
 
             return Ok();
         }
