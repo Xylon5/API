@@ -12,17 +12,21 @@ namespace API.Controllers
 {
     public class DesignController : ApiController
     {
-        [HttpPut]
-        public IHttpActionResult PutBranding(SPSite site)
+        internal ClientContext GetContext(SPSite site)
         {
-            var siteUri = new Uri(site.Url);
-            var spCtx = new Microsoft.SharePoint.Client.ClientContext(siteUri);
+            var spCtx = new Microsoft.SharePoint.Client.ClientContext(site.Url);
             spCtx.AuthenticationMode = ClientAuthenticationMode.Default;
             spCtx.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
             spCtx.ExecuteQuery();
             spCtx.Load(spCtx.Web, w => w.ServerRelativeUrl);
             spCtx.ExecuteQuery();
+            return spCtx;
+        }
 
+        [HttpPut]
+        public IHttpActionResult PutBranding(SPSite site)
+        {
+            var spCtx = GetContext(site);
             string siteAssetUrl = string.Format("{0}/SiteAssets", spCtx.Web.ServerRelativeUrl);
 
             List siteAssets = spCtx.Web.GetList(siteAssetUrl);

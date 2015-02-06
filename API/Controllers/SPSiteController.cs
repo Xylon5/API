@@ -24,6 +24,7 @@ namespace API.Controllers
         /// <returns></returns>
         [Route("sites")]
         [HttpGet]
+        [Throttle(Name="GetSites", CallsPerMinute=1)]
         public IHttpActionResult GetSite([FromBody]SPSite site)
         {
             List<SPSite> result = null;

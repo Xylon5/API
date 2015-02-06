@@ -11,6 +11,8 @@ namespace API.Models
         public string Url { get; set; }
         public Guid ID { get; set; }
         public SPSiteType Type { get; set; }
+        public bool IsOffice365 { get; set; }
+        public int Locale { get; set; }
 
         internal bool CanBeDeleted { get; set; }
     }
