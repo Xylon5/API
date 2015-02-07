@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security;
 using System.Web.Hosting;
 using System.Web.Http;
 using API.Models;
@@ -26,33 +27,30 @@ namespace API.Controllers
         [HttpPut]
         public IHttpActionResult PutBranding(SPSite site)
         {
-            var spCtx = GetContext(site);
-            string siteAssetUrl = string.Format("{0}/SiteAssets", spCtx.Web.ServerRelativeUrl);
+            using (ClientContext clientContext = new ClientContext(site.Url))
+            {
+                if (site.IsOffice365)
+                {
+                    //only relevant if SharePoint Online
+                    var username = "rmnu@rmumsdn.onmicrosoft.com";
+                    var password = "".ToSecureString();
+                    var credentials = new SharePointOnlineCredentials(username, password);
+                    clientContext.Credentials = credentials;
+                }
 
-            List siteAssets = spCtx.Web.GetList(siteAssetUrl);
-            spCtx.ExecuteQuery();
+                clientContext.Load(clientContext.Web);
+                clientContext.Load(clientContext.Web, w => w.ServerRelativeUrl);
+                clientContext.ExecuteQuery();
 
-            FileCreationInformation stylesheet = new FileCreationInformation();
-            stylesheet.Url = "alternate.css";
-            stylesheet.Overwrite = true;
-            stylesheet.Content = System.IO.File.ReadAllBytes(HostingEnvironment.MapPath("~/assets/css/alternate.css"));
-            siteAssets.RootFolder.Files.Add(stylesheet);
+                clientContext.Web.DeployMasterPage(HostingEnvironment.MapPath("~/assets/masterpage/customMaster.master"), "Custom Master Page", "");
+                clientContext.Web.RootFolder.UploadFile("alternate.css", HostingEnvironment.MapPath("~/assets/css/alternate.css"), true);
 
-            FileCreationInformation masterpage = new FileCreationInformation();
-            masterpage.Url = "customMaster.master";
-            masterpage.Overwrite = true;
-            masterpage.Content = System.IO.File.ReadAllBytes(HostingEnvironment.MapPath("~/assets/masterpage/customMaster.master"));
-            siteAssets.RootFolder.Files.Add(masterpage);
-            
-            spCtx.ExecuteQuery();
+                string masterpageUrl = string.Format("{0}/_catalogs/masterpage/customMaster.master", clientContext.Web.ServerRelativeUrl);
+                clientContext.Web.SetMasterPagesByUrl(masterpageUrl, masterpageUrl);
+                clientContext.Web.AlternateCssUrl = string.Format("", clientContext.Web.ServerRelativeUrl);
 
-            spCtx.Web.AlternateCssUrl = siteAssetUrl + "/alternate.css";
-            spCtx.Web.MasterUrl = siteAssetUrl + "/customMaster.master";
-
-            //spCtx.Web.AllProperties.FieldValues.Add("custom master version", new Version(0, 0, 1));
-
-            spCtx.Web.Update();
-            spCtx.ExecuteQuery();
+                clientContext.ExecuteQuery();
+            }
 
             return Ok();
         }
@@ -60,6 +58,9 @@ namespace API.Controllers
         [HttpDelete]
         public IHttpActionResult DeleteBranding(SPSite site)
         {
+            //RemoveFiles(clientContext, branding);
+            //RemoveMasterPages(clientContext, branding);
+            //RemovePageLayouts(clientContext, branding);
             var siteUri = new Uri(site.Url);
             var spCtx = new Microsoft.SharePoint.Client.ClientContext(siteUri);
             spCtx.AuthenticationMode = ClientAuthenticationMode.Default;
