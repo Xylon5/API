@@ -11,10 +11,10 @@ namespace API.Controllers
 {
     public class SPSiteController : ApiController
     {
-        static SynchronizedCollection<SPSite> sites = new SynchronizedCollection<SPSite>
+        static SynchronizedCollection<Website> sites = new SynchronizedCollection<Website>
         { 
-            new SPSite { ID = new Guid("{94259729-D1D0-4C3B-86DB-932395EF8535}"), Title = "Central Administration",  Url= "http://vrmu009:8000", CanBeDeleted = false, Type= SPSiteType.Administration }, 
-            new SPSite { ID = new Guid("{E35C227D-8ED4-4BB2-A753-D177999463CF}"), Title = "Intranet Root", Url= "http://intranet.vdrmu009.loc", CanBeDeleted = false, Type=SPSiteType.Collaboration }
+            new Website { ID = new Guid("{94259729-D1D0-4C3B-86DB-932395EF8535}"), Title = "Central Administration",  Url= "http://vrmu009:8000", CanBeDeleted = false, Type= WebsiteType.Administration }, 
+            new Website { ID = new Guid("{E35C227D-8ED4-4BB2-A753-D177999463CF}"), Title = "Intranet Root", Url= "http://intranet.vdrmu009.loc", CanBeDeleted = false, Type=WebsiteType.Collaboration }
         };
 
         /// <summary>
@@ -25,9 +25,9 @@ namespace API.Controllers
         [Route("sites")]
         [HttpGet]
         [Throttle(Name="GetSites", CallsPerMinute=100)]
-        public IHttpActionResult GetSite([FromBody]SPSite site)
+        public IHttpActionResult GetSite([FromBody]Website site)
         {
-            List<SPSite> result = null;
+            List<Website> result = null;
             if (site != null)
             {
                 if (site.ID != null && site.ID != Guid.Empty)
@@ -58,7 +58,7 @@ namespace API.Controllers
         /// <returns></returns>
         [Route("sites")]
         [HttpPost]
-        public IHttpActionResult PostSite([FromBody]SPSite site)
+        public IHttpActionResult PostSite([FromBody]Website site)
         {
             //var spCtx = new Microsoft.SharePoint.Client.ClientContext("http://intranet.vdrmu009.loc");
             //spCtx.AuthenticationMode = ClientAuthenticationMode.Default;
@@ -81,20 +81,20 @@ namespace API.Controllers
 
             //spCtx.ExecuteQuery();
 
-            sites.Add(new SPSite() { ID = id, Title = site.Title, Url = url, CanBeDeleted = true, Type = site.Type });
+            sites.Add(new Website() { ID = id, Title = site.Title, Url = url, CanBeDeleted = true, Type = site.Type });
 
             return Ok(id);
         }
 
         [Route("sites")]
         [HttpDelete]
-        public IHttpActionResult DeleteSite([FromBody]SPSite site)
+        public IHttpActionResult DeleteSite([FromBody]Website site)
         {
-            SPSite toDelete = null;
+            Website toDelete = null;
             if (site.ID != null && site.ID != Guid.Empty) toDelete = (from s in sites where s.ID == site.ID select s).FirstOrDefault();
             else if (!string.IsNullOrEmpty(site.Url)) toDelete = (from s in sites where s.Url.Equals(site.Url, StringComparison.InvariantCultureIgnoreCase) select s).FirstOrDefault();
 
-            if (toDelete == null | toDelete == default(SPSite)) return this.InternalServerError(new Exception("The requested site could not be found. Maybe it was not created by this api!"));
+            if (toDelete == null | toDelete == default(Website)) return this.InternalServerError(new Exception("The requested site could not be found. Maybe it was not created by this api!"));
             if (!toDelete.CanBeDeleted) return this.InternalServerError(new Exception("The requested site could be found but cannot be deleted due to internal protection!"));
             
             sites.Remove(toDelete);

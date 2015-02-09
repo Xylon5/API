@@ -13,7 +13,7 @@ namespace API.Controllers
 {
     public class DesignController : ApiController
     {
-        internal ClientContext GetContext(SPSite site)
+        internal ClientContext GetContext(Website site)
         {
             var spCtx = new Microsoft.SharePoint.Client.ClientContext(site.Url);
             spCtx.AuthenticationMode = ClientAuthenticationMode.Default;
@@ -25,7 +25,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public IHttpActionResult PutBranding(SPSite site)
+        public IHttpActionResult PutBranding(Website site)
         {
             using (ClientContext clientContext = new ClientContext(site.Url))
             {
@@ -56,7 +56,7 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public IHttpActionResult DeleteBranding(SPSite site)
+        public IHttpActionResult DeleteBranding(Website site)
         {
             //RemoveFiles(clientContext, branding);
             //RemoveMasterPages(clientContext, branding);
