@@ -6,14 +6,14 @@ namespace API.Migrations
     using System.Linq;
     using API.Models;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<API.ConfigDBContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<API.ApiDBContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(API.ConfigDBContext context)
+        protected override void Seed(API.ApiDBContext context)
         {
             context.Configurations.AddOrUpdate(
                 x => x.ConfigID,

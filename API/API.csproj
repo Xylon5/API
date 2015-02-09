@@ -188,9 +188,6 @@
     <Compile Include="Models\SiteProvisioning\Website.cs" />
     <Compile Include="Models\SiteProvisioning\UpdateSiteParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SharePoint\SharePointApiControllerContext.cs" />
-    <Compile Include="SharePoint\SharePointContext.cs" />
-    <Compile Include="SharePoint\TokenHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -15,7 +15,7 @@ namespace API.Controllers
 {
     public class ConfigurationsController : ApiController
     {
-        private ConfigDBContext db = new ConfigDBContext();
+        private ApiDBContext db = new ApiDBContext();
 
         // GET: api/Configurations
         public IQueryable<Config> GetConfigurations()
