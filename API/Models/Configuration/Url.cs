@@ -12,7 +12,7 @@ namespace API.Models
         public string Path { get; set; }
         public bool IsCritical { get; set; }
         public bool IsOffice365 { get; set; }
-
         public bool IsServiceUrl { get; set; }
+        public bool SiteCreationEnabled { get; set; }
     }
 }

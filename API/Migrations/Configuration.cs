@@ -18,44 +18,32 @@ namespace API.Migrations
             context.Configurations.AddOrUpdate(
                 x => x.ConfigID,
                 new Config()
-                {
-                    ConfigID = 1,
-                    Urls =
+            {
+                ConfigID = 1,
+                Urls =
                         new System.Collections.Generic.List<Url>()
                 {
-                    new Url(){ IsCritical=true, IsOffice365=false, IsServiceUrl=false, Path="http://vrmu009:8000"},
-                    new Url(){ IsCritical=true, IsOffice365=false, IsServiceUrl=false, Path="http://intranet.vdrmu009.loc"}
+                    new Url(){ IsCritical=true, IsOffice365=false, IsServiceUrl=false, Path="http://vrmu009:8000", SiteCreationEnabled=false},
+                    new Url(){ IsCritical=true, IsOffice365=false, IsServiceUrl=false, Path="http://intranet.vdrmu009.loc", SiteCreationEnabled=true}
                 },
-                    EndPoints =
+                EndPoints =
                           new System.Collections.Generic.List<Url>()
                 {
                     new Url(){ IsCritical=true, IsOffice365=true, IsServiceUrl=true, Path="sb://myServicebus"}
                 },
-                    Miscellanous = new MiscConfigs()
-                    {
-                        CacheRefreshInterval = new TimeSpan(0, 5, 0),
-                        AllowBetaFeatures = true
-                    }
+                Miscellanous = new MiscConfigs()
+                {
+                    CacheRefreshInterval = new TimeSpan(0, 5, 0),
+                    AllowBetaFeatures = true
                 }
+            }
                 );
 
             context.Websites.AddOrUpdate(
                 x => x.ID,
-                new Website() { ID = Guid.NewGuid(), CanBeDeleted = false, IsOffice365 = true, Locale = 1031, Title = "RMU Dev Site", Type = WebsiteType.Administration, Url = "https://rmumsdn.sharepoint.com/SitePages/DevHome.aspx" }
+                new Website() { ID = new Guid("{DAD8B015-8E2C-41AF-AEC8-988247376AA4}"), CanBeDeleted = false, IsOffice365 = true, Locale = 1031, Title = "RMU Dev Site",
+                    Type = WebsiteType.Administration, BaseUrl = "https://rmumsdn.sharepoint.com", ServerRelativeUrl = "/SitePages/DevHome.aspx" }
                 );
-
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
         }
     }
 }

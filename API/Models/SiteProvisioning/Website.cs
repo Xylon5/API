@@ -8,16 +8,22 @@ namespace API.Models
 {
     public class Website
     {
-        public string Title { get; set; }
-        public string Url { get; set; }
-
         [Key]
         public Guid ID { get; set; }
+        public string Title { get; set; }
+        public string BaseUrl { get; set; }
+        public string ServerRelativeUrl { get; set; }
         public WebsiteType Type { get; set; }
         public bool IsOffice365 { get; set; }
-        public int Locale { get; set; }
-
+        public uint Locale { get; set; }
         internal bool CanBeDeleted { get; set; }
+
+        internal string Url
+        {
+            get { return string.Format("{0}/{1}", this.BaseUrl, this.ServerRelativeUrl); }
+        }
+
+        public string OwnerLogin { get; set; }
     }
 
     public enum WebsiteType

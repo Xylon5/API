@@ -5,6 +5,9 @@
 *.suo
 *.user
 *.sln.docstates
+Web.config
+Web.Debug.config
+Web.Release.config
 
 # Build results
 [Dd]ebug/
