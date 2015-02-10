@@ -16,7 +16,6 @@ namespace API.Models
         public List<Url> EndPoints { get; set; }
 
         public MiscConfigs Miscellanous { get; set; }
-
     }
 
     public class MiscConfigs
@@ -26,5 +25,6 @@ namespace API.Models
         public bool AllowBetaFeatures { get; set; }
 
         public bool IsMaintenance { get; set; }
+
     }
 }
