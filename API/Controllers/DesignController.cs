@@ -32,8 +32,8 @@ namespace API.Controllers
                 if (site.IsOffice365)
                 {
                     //only relevant if SharePoint Online
-                    var username = "rmnu@rmumsdn.onmicrosoft.com";
-                    var password = "".ToSecureString();
+                    var username = "dev@mkamsdn.onmicrosoft.com";
+                    var password = "Start111!".ToSecureString();
                     var credentials = new SharePointOnlineCredentials(username, password);
                     clientContext.Credentials = credentials;
                 }
