@@ -15,7 +15,7 @@
     <AssemblyName>API</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44302</IISExpressSSLPort>
+    <IISExpressSSLPort>44306</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
@@ -247,6 +247,18 @@
     <Compile Include="Migrations\201502091156075_initialSiteTable.Designer.cs">
       <DependentUpon>201502091156075_initialSiteTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502100937301_WebsiteExt.cs" />
+    <Compile Include="Migrations\201502100937301_WebsiteExt.Designer.cs">
+      <DependentUpon>201502100937301_WebsiteExt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502101000055_WebsiteExt1.cs" />
+    <Compile Include="Migrations\201502101000055_WebsiteExt1.Designer.cs">
+      <DependentUpon>201502101000055_WebsiteExt1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502101055229_WebsiteExt2.cs" />
+    <Compile Include="Migrations\201502101055229_WebsiteExt2.Designer.cs">
+      <DependentUpon>201502101055229_WebsiteExt2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\OData\Article.cs" />
     <Compile Include="Models\Configuration\Config.cs" />
@@ -285,6 +297,15 @@
     <EmbeddedResource Include="Migrations\201502091156075_initialSiteTable.resx">
       <DependentUpon>201502091156075_initialSiteTable.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502100937301_WebsiteExt.resx">
+      <DependentUpon>201502100937301_WebsiteExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502101000055_WebsiteExt1.resx">
+      <DependentUpon>201502101000055_WebsiteExt1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502101055229_WebsiteExt2.resx">
+      <DependentUpon>201502101055229_WebsiteExt2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\PnP\OfficeDevPnP.Core\OfficeDevPnP.Core\OfficeDevPnP.Core.csproj">
@@ -307,7 +328,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>2938</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44302/</IISUrl>
+          <IISUrl>https://localhost:44306/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
