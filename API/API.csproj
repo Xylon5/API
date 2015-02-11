@@ -209,12 +209,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\css\alternate.css" />
+    <Content Include="Assets\css\ipi_theme.css" />
+    <Content Include="Assets\themes\ipi_themee.png" />
     <Content Include="Global.asax" />
     <Content Include="ReadMe.html">
       <DependentUpon>ReadMe.md</DependentUpon>
     </Content>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -272,6 +275,8 @@
     <Content Include="packages.config" />
     <Content Include="ReadMe.md" />
     <Content Include="Assets\masterpage\customMaster.master" />
+    <Content Include="Assets\themes\KaseTheme.spcolor" />
+    <Content Include="Assets\themes\ipi_theme.spcolor" />
     <None Include="Properties\PublishProfiles\Local IIS.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
